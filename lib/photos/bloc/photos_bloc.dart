@@ -9,7 +9,7 @@ part 'photos_state.dart';
 
 class PhotosBloc extends Bloc<PhotosEvent, PhotosState> {
   int page = 0;
-  int limit = 20;
+  int limit = 25;
   PhotoService service = PhotoService();
   PhotosBloc() : super(PhotosInitial()) {
     on<FetchPhotoItems>((event, emit) async {

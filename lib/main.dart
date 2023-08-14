@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'category/bloc/category_bloc.dart';
 import 'photos/bloc/photos_bloc.dart';
 import 'profile/bloc/login_bloc/login_bloc.dart';
+import 'profile/bloc/register_bloc/register_bloc.dart';
 import 'search/bloc/search_bloc.dart';
 import 'splash/cubit/splash_cubit.dart';
 import 'splash/view/splash_screen.dart';
@@ -22,6 +23,9 @@ void main() async {
         ),
         BlocProvider(
           create: (_) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (_) => RegisterBloc(),
         ),
         BlocProvider(
           create: (_) => CategoryBloc(),

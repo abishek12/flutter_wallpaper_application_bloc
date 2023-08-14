@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_wallpaper_application/profile/view/sign_up_screen.dart';
 
-import '../bloc/login_bloc/login_bloc.dart';
+import '../bloc/register_bloc/register_bloc.dart';
 
-class ProfileLoginForm extends StatefulWidget {
-  const ProfileLoginForm({super.key});
+class ProfileRegisterForm extends StatefulWidget {
+  const ProfileRegisterForm({super.key});
 
   @override
-  State<ProfileLoginForm> createState() => _ProfileLoginFormState();
+  State<ProfileRegisterForm> createState() => _ProfileRegisterFormState();
 }
 
-class _ProfileLoginFormState extends State<ProfileLoginForm> {
+class _ProfileRegisterFormState extends State<ProfileRegisterForm> {
   @override
   Widget build(BuildContext context) {
     final key = GlobalKey<FormState>();
+    final fullname = TextEditingController();
     final email = TextEditingController();
     final password = TextEditingController();
-    final formProvider = BlocProvider.of<LoginBloc>(context);
-    return BlocBuilder<LoginBloc, LoginState>(
+    final formProvider = BlocProvider.of<RegisterBloc>(context);
+    return BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
         return Form(
           key: key,
@@ -28,10 +28,31 @@ class _ProfileLoginFormState extends State<ProfileLoginForm> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextFormField(
+                  controller: fullname,
+                  onChanged: (value) {
+                    formProvider.add(
+                      RegisterOnChangeEvent(
+                        strFullname: fullname.text,
+                        strEmail: email.text,
+                        strPassword: password.text,
+                      ),
+                    );
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Fullname',
+                    labelText: 'Fullname',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
                   controller: email,
                   onChanged: (value) {
                     formProvider.add(
-                      LoginOnChangeEvent(
+                      RegisterOnChangeEvent(
+                        strFullname: fullname.text,
                         strEmail: email.text,
                         strPassword: password.text,
                       ),
@@ -51,7 +72,8 @@ class _ProfileLoginFormState extends State<ProfileLoginForm> {
                   obscureText: true,
                   onChanged: (value) {
                     formProvider.add(
-                      LoginOnChangeEvent(
+                      RegisterOnChangeEvent(
+                        strFullname: fullname.text,
                         strEmail: email.text,
                         strPassword: password.text,
                       ),
@@ -67,30 +89,26 @@ class _ProfileLoginFormState extends State<ProfileLoginForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: state is LoginSuccess
+                      onPressed: state is RegisterSuccess
                           ? () async {
                               formProvider.add(
-                                LoginOnSubmitEvent(
+                                RegisterOnSubmitEvent(
+                                  fullname: fullname.text,
                                   email: email.text,
                                   password: password.text,
                                 ),
                               );
                             }
                           : null,
-                      child: state is LoginLoading
+                      child: state is RegisterLoading
                           ? const Center(
                               child: CircularProgressIndicator(),
                             )
-                          : const Text("Login"),
+                          : const Text("Register"),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpScreen(),
-                        ),
-                      ),
-                      child: const Text("'create account'"),
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("back to login"),
                     ),
                   ],
                 ),

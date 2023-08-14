@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProfileFavoriteWidget extends StatelessWidget {
   const ProfileFavoriteWidget({super.key});
@@ -19,24 +20,24 @@ class ProfileFavoriteWidget extends StatelessWidget {
           future: reference.get(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return MasonryGridView.builder(
-                  gridDelegate:
-                      const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Image.network(
-                        "${snapshot.data!.docs[index].get('image_url')}",
+              return snapshot.data!.docs.isEmpty
+                  ? SvgPicture.asset("assets/onboarding/empty.svg")
+                  : MasonryGridView.builder(
+                      gridDelegate:
+                          const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
                       ),
-                    );
-                  });
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Image.network(
+                            "${snapshot.data!.docs[index].get('image_url')}",
+                          ),
+                        );
+                      });
             }
-            if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+
             return const Center(
               child: CircularProgressIndicator(),
             );

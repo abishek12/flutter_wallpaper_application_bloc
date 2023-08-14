@@ -15,6 +15,7 @@ class PhotoScreen extends StatefulWidget {
 class _PhotoScreenState extends State<PhotoScreen> {
   @override
   Widget build(BuildContext context) {
+    //final List<PhotoModel> items = [];
     return BlocBuilder<PhotosBloc, PhotosState>(builder: (context, state) {
       if (state is PhotosInitial) {
         BlocProvider.of<PhotosBloc>(context).add(FetchPhotoItems());
@@ -24,6 +25,10 @@ class _PhotoScreenState extends State<PhotoScreen> {
       }
       if (state is PhotosLoaded) {
         final model = state.model;
+        // setState(() {
+        //   items.add(model);
+        // });
+        //debugPrint(items.toString());
         return LazyLoadScrollView(
           onEndOfPage: () =>
               BlocProvider.of<PhotosBloc>(context).add(FetchPhotoItems()),

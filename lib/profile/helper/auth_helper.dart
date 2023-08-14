@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthHelper {
@@ -17,12 +18,23 @@ class AuthHelper {
     }
   }
 
-  Future<void> createUser(String email, String password) async {
+  Future<void> createUser(
+      String fullname, String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final users = FirebaseFirestore.instance.collection('users');
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
+      )
+          .then((value) {
+        final id = value.user!.uid;
+        users.doc(id).set({
+          "fullname": fullname,
+          "email": email,
+          "password": password,
+        });
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw ('The password provided is too weak.');
