@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "76310688620",
+    "project_id": "wallpaper-application-e75af",
+    "storage_bucket": "wallpaper-application-e75af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76310688620:android:e5f7aa20624c38cf39b949",
+        "android_client_info": {
+          "package_name": "com.techno_bridge.wallpaper_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76310688620-ki07i34ekb1fg1kmon738h63l3qbkc3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD64vLYrc_rvXShxOY0WNY6hvQMX4aRi7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76310688620-ki07i34ekb1fg1kmon738h63l3qbkc3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
