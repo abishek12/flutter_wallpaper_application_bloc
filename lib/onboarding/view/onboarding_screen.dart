@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../main/view/main_screen.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -111,6 +113,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: isLastPage
             ? TextButton(
                 onPressed: () async {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MainScreen(),
+                    ),
+                  );
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('showHome', true);
                 },

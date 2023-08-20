@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
           future: checkOnboarding(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(); // Show a loading indicator while waiting for the value.
+              return const CircularProgressIndicator();
             }
             if (status == SplashScreenStatus.visible) {
               return const SplashUi();
